@@ -65,12 +65,12 @@ export class AuthService {
       throw new HttpException('Invalid credentials', 400);
     }
 
-    return await this.generateJWT(user.name, user.id);
+    return { token: await this.generateJWT(user.name, user.id) };
   }
 
   generateProductKey(email: string, userType: UserType) {
     const string = `${email}-${userType}-${process.env.PRODUCT_KEY_SECRET}`;
-    return bcrypt.hash(string, 10);
+    return { productKey: bcrypt.hash(string, 10) };
   }
 
   private generateJWT(name: string, id: number) {
