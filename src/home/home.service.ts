@@ -3,6 +3,7 @@ import { PrismaService } from 'src/prisma/prisma.service';
 import { HomeResponseDto } from './dtos/home.dto';
 import { PropertyType } from '@prisma/client';
 import { Image } from './dtos/home.dto';
+import { UserInfo } from 'src/user/decorators/user.decorator';
 
 interface GetHomesParam {
   city?: string;
@@ -221,5 +222,35 @@ export class HomeService {
     }
 
     return home.realtor;
+  }
+
+  async inquire(buyer: UserInfo, homeId: number, message: string) {
+    const realtor = await this.getRealtorByHomeId(homeId);
+    return this.prismaService.message.create({
+      data: {
+        realtor_id: realtor.id,
+        buyer_id: buyer.id,
+        home_id: homeId,
+        message,
+      },
+    });
+  }
+
+  async getMessagesByHome(homeId: number, user: UserInfo) {
+    return this.prismaService.message.findMany({
+      where: {
+        home_id: homeId,
+      },
+      select: {
+        message: true,
+        buyer: {
+          select: {
+            name: true,
+            phone: true,
+            email: true,
+          },
+        },
+      },
+    });
   }
 }
