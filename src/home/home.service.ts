@@ -5,7 +5,7 @@ import { PropertyType } from '@prisma/client';
 import { Image } from './dtos/home.dto';
 import { UserInfo } from 'src/user/decorators/user.decorator';
 
-interface GetHomesParam {
+export interface GetHomesParam {
   city?: string;
   price?: {
     gte?: number;
