@@ -20,10 +20,12 @@
     "test:e2e": "jest --config ./test/jest-e2e.json"
   },
   "dependencies": {
+    "@golevelup/ts-jest": "^0.4.0",
     "@nestjs/common": "^9.0.0",
     "@nestjs/core": "^9.0.0",
     "@nestjs/platform-express": "^9.0.0",
     "@nestjs/swagger": "^7.1.10",
+    "@nestjs/throttler": "^4.2.1",
     "@nestjs/typeorm": "^10.0.0",
     "@prisma/client": "^5.2.0",
     "@types/bcryptjs": "^2.4.2",
